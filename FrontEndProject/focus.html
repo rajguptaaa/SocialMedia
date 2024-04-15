@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="focus.css">
+</head>
+<body>
+    <div class="checkbox-wrapper-54" style="margin-left: 1150px; margin-top: 20px;">
+        <label class="switch">
+          <input type="checkbox" onclick="toggleMode()">
+          <span class="slider"></span>
+        </label>
+      </div>
+    <div class="clock">
+        <div class="hours"></div>
+        <div class="colon">:</div>
+        <div class="minutes"></div>
+        <div class="colon">:</div>
+        <div class="seconds"></div>
+    </div>
+    <script>
+           document.querySelector(".clock .hours").innerHTML=(
+            new Array(24).fill(0).map((n,i)=>{
+                return `<div>
+                    ${i<10 ? "0"+i : i}
+                </div> `;
+            }).join("")
+           );
+
+           document.querySelector(".clock .minutes").innerHTML=(
+            new Array(60).fill(0).map((n,i)=>{
+                return `<div>
+                    ${i<10 ? "0"+i : i}
+                </div> `;
+            }).join("")
+           );
+
+           document.querySelector(".clock .seconds").innerHTML=(
+            new Array(60).fill(0).map((n,i)=>{
+                return `<div>
+                    ${i<10 ? "0"+i : i}
+                </div> `;
+            }).join("")
+           );
+
+           let time = new Date();
+           let prevhours = time.getHours() * 100,
+           prevminutes = time.getMinutes() * 100,
+           prevseconds = time.getSeconds() * 100;
+
+           document.querySelector(".clock .hours div").style.marginTop =`-${prevhours}px`;
+           document.querySelector(".clock .minutes div").style.marginTop =`-${prevminutes}px`;
+           document.querySelector(".clock .seconds div").style.marginTop =`-${prevseconds}px`;
+           
+            function updateClock(){
+                let time = new Date();
+                let hours = time.getHours() * 100,
+                minutes = time.getMinutes() * 100,
+                seconds = time.getSeconds() * 100;
+
+                if(prevhours !== hours){
+                    prevhours = hours;
+                    document.querySelector(".clock .hours div").style.marginTop =`-${hours}px`;
+                    document.querySelector(".clock .hours").classList.add("animate");
+                    setTimeout(function(){
+                        document.querySelector(".clock .hours").classList.remove("animate");
+                    },800);
+                }
+
+                if(prevminutes !== minutes){
+                    prevminutes = minutes;
+                    document.querySelector(".clock .minutes div").style.marginTop =`-${minutes}px`;
+                    document.querySelector(".clock .minutes").classList.add("animate");
+                    setTimeout(function(){
+                        document.querySelector(".clock .minutes").classList.remove("animate");
+                    },800);
+                }
+
+                if(prevseconds !== seconds){
+                    prevseconds = seconds;
+                    document.querySelector(".clock .seconds div").style.marginTop =`-${seconds}px`;
+                    document.querySelector(".clock .seconds").classList.add("animate");
+                    setTimeout(function(){
+                        document.querySelector(".clock .seconds").classList.remove("animate");
+                    },800);
+                }
+            }
+            setInterval(updateClock, 1000);
+
+            function toggleMode() {
+            var body = document.querySelector("body");
+            if (body.style.backgroundColor === "" || body.style.backgroundColor === "rgb(255, 255, 255)") {
+                // Switch to dark mode
+                body.style.backgroundColor = "#2c3e50"; // Dark blue
+                body.style.color = "#ecf0f1"; // Light gray
+            } else {
+                // Switch to light mode
+                body.style.backgroundColor = "#fff"; // White
+                body.style.color = "#111"; // Black
+            }
+        }
+    </script>
+</body>
+</html>

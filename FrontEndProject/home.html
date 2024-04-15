@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>www.uniconnect.com</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .left, .middle, .right {
+            background-color: #ffffff;
+            color: #333;
+            overflow:hidden;
+        }
+        .left {
+            width: 20%;
+            padding-top: 20px;
+            border-right: 1px solid #ccc;
+        }
+        .middle {
+            width: 50%;
+            overflow-y: scroll;
+        }
+        .right {
+            width: 25%;
+            overflow:hidden;
+        }
+        .right img{
+            align-items:flex-end;
+            padding-top: 60px;
+            height:150px;
+        }
+        .right img:hover{
+            cursor: pointer;
+        }
+        .left h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .left ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .left ul li {
+            margin-bottom: 10px;
+        }
+        .left ul li a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .left ul li a i {
+            margin-right: 10px;
+        }
+        .left ul li a span {
+            font-size: 18px;
+        }
+        .left ul li a:hover {
+            color: #007bff;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+        .container.dark-mode .left, 
+        .container.dark-mode .middle, 
+        .container.dark-mode .right {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content button {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background-color: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Toggle Button Styles */
+        .toggle-btn {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: 2px solid #ccc;
+            width: 40px;
+            height: 20px;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .toggle-btn:before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        input:checked + .toggle-btn {
+            border-color: #007bff;
+        }
+
+        input:checked + .toggle-btn:before {
+            transform: translateX(20px);
+        }
+        .middle {
+    width: 70%; /* Adjust the width as needed */
+    max-width: 800px; /* Set a maximum width if necessary */
+    margin: 0 auto; /* Center the middle div horizontally */
+    overflow-y: scroll;
+    /* text-align:center; Center all items horizontally */
+            margin-left: 6%;
+            margin-right: 4%;
+}
+.post {
+    display: inline-block;
+    text-align: left; /* Reset text alignment for post content */
+    margin-bottom: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    padding: 10px;
+    height: 50%;
+}
+
+.user-profile {
+    display: flex;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-image img {
+    width: 80%; /* Adjust image width as needed */
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.post-interactions button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.post-interactions button:hover {
+    color: #007bff;
+}
+
+.like-btn .fas.fa-heart {
+    display:block;
+}
+
+.like-btn.liked .far.fa-heart {
+    display:block;
+}
+
+.like-btn.liked .fas.fa-heart {
+    display: inline-block;
+    color: #ff0000; /* Change color as desired */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1><i class="fa fa-globe" aria-hidden="true"></i> UniConnect</h1>
+            <br>
+            <nav style="margin-left: 20px;">
+                <ul>
+                    <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                    <li><a href="explore.html"><i class="fa fa-hashtag"></i><span>Explore</span></a></li>
+                    <li><a href="message.html"><i class="fa fa-comments"></i><span>Messages</span></a></li>
+                    <li><a href="userprofile.html"><i class="fa fa-user"></i><span>Profile</span></a></li>
+                    <li><a href="focus.html"><i class="fa fa-clock"></i><span>Focus</span></a></li>
+                    <li><a href="index.html"><i class="fa fa-undo"></i><span>Log Out</span></a></li>
+                    <br><br><br><br><br><br>
+                    <li class="dropdown">
+                        <a href="#"><i class="fa fa-info-circle"></i><span>More</span></a>
+                        <div class="dropdown-content">
+                            <button onclick="toggleDarkMode()">DarkMode(ON/OFF)</button>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="middle">
+            <!-- Main page content -->
+            <!-- 1 -->
+            <div class="post">
+                <div class="user-profile">
+                    <img src="profile.png" alt="User Profile Picture">
+                    <h3>Shaddha </h3>
+                    <h6><cite> 11 min ago</cite></h6><h6>
+                </div>
+                <div class="post-image">
+                    <img src="p2.jpg" alt="Post Image">
+                </div>
+                <div class="post-interactions">
+                    <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fas fa-share"></i> Share</button>
+                </div>
+            </div>
+            <!-- 2 -->
+            <br><hr>
+            <div class="post">
+                <div class="user-profile">
+                    <img src="adarsh.png" alt="User Profile Picture">
+                    <h3>Adarsh</h3>
+                    <h6><cite> 09 min ago</cite></h6><h6>
+                </div>
+                <div class="post-image">
+                    <img src="p1.jpg" alt="Post Image">
+                </div>
+                <div class="post-interactions">
+                    <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fas fa-share"></i> Share</button>
+                </div>
+            </div>
+            <!-- 3 -->
+            <br><hr>
+            <div class="post">
+                <div class="user-profile">
+                    <img src="nikhil.png" alt="User Profile Picture">
+                    <h3>Nikhil </h3>
+                    <h6><cite> 1 hrs ago</cite></h6><h6>
+                </div>
+                <div class="post-image">
+                    <img src="q&a.png" alt="Post Image">
+                </div>
+                <div class="post-interactions">
+                    <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fas fa-share"></i> Share</button>
+                </div>
+            </div>
+            <!-- 4 -->
+            <br><hr>
+            <div class="post">
+                <div class="user-profile">
+                    <img src="beauty.png" alt="User Profile Picture">
+                    <h3>Beauty </h3>
+                    <h6><cite> 11 min ago</cite></h6><h6>
+                </div>
+                <div class="post-image">
+                    <img src="p3.jpg" alt="Post Image">
+                </div>
+                <div class="post-interactions">
+                    <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fas fa-share"></i> Share</button>
+                </div>
+            </div>
+            <!-- 5 -->
+            <br><hr>
+         <div class="post">
+                <div class="user-profile">
+                    <img src="swaraj.png" alt="User Profile Picture">
+                    <h3>Swraj </h3>
+                    <h6><cite> 11 min ago</cite></h6><h6>
+                </div>
+                <div class="post-image">
+                    <img src="p1.jpg" alt="img Image">
+                </div>
+                <div class="post-interactions">
+                    <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fas fa-share"></i> Share</button>
+                </div>
+        </div>
+        <!-- 6 --><br><hr>
+        <div class="post">
+            <div class="user-profile">
+                <img src="swaraj.png" alt="User Profile Picture">
+                <h3>Swraj </h3>
+                <h6><cite> 11 min ago</cite></h6><h6>
+            </div>
+            <div class="post-image">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur 
+                    Lorem ipsum dolor sit amet consectetur
+                    Lorem ipsum dolor sit amet consectetur
+                </p>
+            </div>
+            <div class="post-interactions">
+                <button class="like-btn" onclick="toggleLike(this)"><i class="far fa-heart"></i> Like</button>
+                <button><i class="far fa-comment"></i> Comment</button>
+                <button><i class="fas fa-share"></i> Share</button>
+            </div>
+    </div>
+        </div>
+        <div class="right">
+            <center>
+                <a href="https://www.hotstar.com/in/home?ref=%2Fin" target="_blank"><img src="ads2.png" alt=""></a><br>
+                <cite>Visit ©</cite>
+                <br>
+                <a href="https://www.samsung.com/in/smartphones/galaxy-s24-ultra/buy/?cid=in_pd_ppc_google_im-all-all-all-dtc_sales_samsung-allproducts-all-2023_eshop-text-search_01jan2023-na_1ur-501322l-2024-eshop-bau-search-cpc_pfm-688104537051-12512103039-127630421468-kwd-10020211-samsung-b--g--&gad_source=1&gclid=Cj0KCQjw5cOwBhCiARIsAJ5njuZAPqt44j1kUU5SKVX2kuXWg_PCcLQWTku6Kyp8_VTrtAV5ns0ztCAaAvHREALw_wcB" target="_blank"><img src="ads.png" alt=""></a><br>
+                <cite>Use Code INT219</cite>
+                <br>
+                <br>
+                <p style="margin-bottom: 0px; font-size: 7.5px;"><a href="https://ads.google.com/local-services-ads/#" target="_blank">Google Ads Services</a></p>
+            </center>
+        </div>
+    </div>
+
+    <input type="checkbox" id="toggleDarkMode" class="toggle-input">
+    <label for="toggleDarkMode" class="toggle-btn"></label>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            var container = document.querySelector('.container');
+            if (document.body.classList.contains('dark-mode')) {
+                container.classList.add('dark-mode');
+            } else {
+                container.classList.remove('dark-mode');
+            }
+        }
+        function toggleLike(button) {
+            button.classList.toggle('liked');
+        }
+    </script>
+</body>
+</html>

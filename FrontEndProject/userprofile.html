@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>User Profile</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fafafa;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 20px;
+    }
+
+    .profile-picture img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer; /* Added cursor pointer */
+    }
+
+    .profile-info {
+        flex-grow: 1;
+    }
+
+    .profile-info h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .profile-info h5, .profile-info h6 {
+        margin: 0;
+        font-size: 16px;
+        color: #777;
+    }
+
+    .user-stats {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .user-stats div {
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .user-posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .user-post {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer; /* Added cursor pointer */
+    }
+
+    .user-post img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        overflow: auto;
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 800px;
+        max-height: 80%;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="profile-header">
+        <div class="profile-picture">
+            <img src="profile.png" alt="Profile Picture" onclick="openModal(this.src)">
+        </div>
+        <div class="profile-info">
+            <h2>Shraddha Kapoor</h2>
+            <h5>Lovely Proffessional University</h5>
+            <h6>Class of 2023</h6>
+            <!-- <p>Joined: April 10, 2024</p> -->
+            <div class="user-stats">
+                <div>
+                    <p>Followers</p>
+                    <p>100</p>
+                </div>
+                <div>
+                    <p>Following</p>
+                    <p>50</p>
+                </div>
+                <div>
+                    <p>Total Posts</p>
+                    <p>3</p>
+                </div>
+                <p>Joined: April 10, 2024</p>
+            </div>
+        </div>
+    </div>
+    <h3>Posts</h3>
+    <div class="user-posts">
+        <div class="user-post">
+            <img src="np.png" alt="Post 1" onclick="openModal(this.src)">
+        </div>
+        <div class="user-post">
+            <img src="q&a.png" alt="Post 2" onclick="openModal(this.src)">
+        </div>
+        <div class="user-post">
+            <img src="moti.png" alt="Post 3" onclick="openModal(this.src)">
+        </div>
+
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="img01">
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var modalImg = document.getElementById("img01");
+    function openModal(src) {
+        modal.style.display = "block";
+        modalImg.src = src;
+    }
+
+    // Close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+</script>
+
+</body>
+</html>

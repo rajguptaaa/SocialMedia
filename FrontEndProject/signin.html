@@ -1,0 +1,159 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Sign in</title>
+    <link rel="stylesheet" type="text/css" href="signin.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Signin</h1>
+    </div>
+    <br>
+    <div class="main">
+        <form>
+            <span>
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="First Name" name="" required>
+            </span><br>
+            <span>
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Last Name" name="" required>
+            </span><br>
+
+            <span>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <input type="email" placeholder="emailId" name="" required>
+            </span><br>
+
+            <span>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <input type="number" placeholder="Mobile number" name="" required>
+            </span><br>
+
+            <span>
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                <input type="date" placeholder="Date of Birth" name="" required>
+            </span><br>
+
+            <span>
+                <i class="fa fa-lock"></i>
+                <input type="Password" placeholder="Password" name="" required>
+            </span><br>
+
+            <span>
+                <i class="fa fa-lock"></i>
+                <input type="Password" placeholder="Confirm Password" name="" required>
+            </span><br>
+
+            <a href="index.html"><button><a href="index.html">Sing in</a></button></a>
+<body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign in</title>
+    <link rel="stylesheet" type="text/css" href="signin.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        function validateForm() {
+            var firstName = document.forms["signinForm"]["firstName"].value;
+            var lastName = document.forms["signinForm"]["lastName"].value;
+            var email = document.forms["signinForm"]["email"].value;
+            var phone = document.forms["signinForm"]["phone"].value;
+            var dob = document.forms["signinForm"]["dob"].value;
+            var password = document.forms["signinForm"]["password"].value;
+            var confirmPassword = document.forms["signinForm"]["confirmPassword"].value;
+
+            // Check if any field is empty
+            if (firstName == "" || lastName == "" || email == "" || phone == "" || dob == "" || password == "" || confirmPassword == "") {
+                alert("All fields are required");
+                return false;
+            }
+
+            // Validate email format
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                return false;
+            }
+
+            // Validate phone number
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit phone number");
+                return false;
+            }
+
+            // Validate age
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var month = today.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 18) {
+                alert("You must be at least 18 years old to sign up");
+                return false;
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return false;
+            }
+
+            // If everything is valid, return true
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Signin</h1>
+    </div>
+    <br>
+    <div class="main">
+        <form name="signinForm" onsubmit="return validateForm()">
+            <span>
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="First Name" name="firstName" required>
+            </span><br>
+            <span>
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Last Name" name="lastName" required>
+            </span><br>
+            <span>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <input type="email" placeholder="Email Address" name="email" required>
+            </span><br>
+            <span>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <input type="tel" placeholder="Mobile Number" name="phone" pattern="[0-9]{10}" required>
+            </span><br>
+            <span>
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                <input type="date" placeholder="Date of Birth" name="dob" required>
+            </span><br>
+            <span>
+                <i class="fa fa-lock"></i>
+                <input type="password" placeholder="Password" name="password" required>
+            </span><br>
+            <span>
+                <i class="fa fa-lock"></i>
+                <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
+            </span><br>
+            <!-- <button type="submit">Sign in</button> -->
+            <button type="submit"><a href="index.html">Sing in</a></button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

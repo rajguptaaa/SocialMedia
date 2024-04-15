@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="message.css">
+  <title>WebSocket Chat</title>
+  <style>
+    .post {
+    display: inline-block;
+    text-align: left; /* Reset text alignment for post content */
+    margin-bottom: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    padding: 10px;
+    height: 50%;
+}
+
+.user-profile {
+    display: flex;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-image img {
+    width: 80%; /* Adjust image width as needed */
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.post-interactions button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    margin-right: 10px;
+    cursor: pointer;
+}
+  </style>
+</head>
+<body>
+    <div class="post">
+        <div class="user-profile">
+            <img src="beauty.png" alt="User Profile Picture">
+            <h3>Beauty </h3>
+            <h6><cite> 11 min ago</cite></h6><h6>
+        </div>
+    </div>
+  <div class="chat-container">
+    <div class="messages-container" id="messages"></div>
+    <div class="message-input-container">
+      <input type="text" id="messageInput" placeholder="Type a message...">
+      <button id="sendButton">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const messagesDiv = document.getElementById('messages');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    const ws = new WebSocket('ws://localhost:3000');
+  
+    ws.addEventListener('message', (event) => {
+      const message = event.data;
+      displayMessage(message);
+    });
+  
+    sendButton.addEventListener('click', () => {
+      const message = messageInput.value;
+      ws.send(message);
+      displayMessage(message, true);
+      messageInput.value = '';
+    });
+  
+    function displayMessage(message, isSender = false) {
+      const messageContainer = document.createElement('div');
+      const messageElement = document.createElement('div');
+      messageElement.textContent = message;
+      
+      messageContainer.classList.add('message-container');
+      
+      if (isSender) {
+        messageContainer.classList.add('sender-message-container');
+        messageElement.classList.add('message-bubble', 'sender-message-bubble');
+      } else {
+        messageElement.classList.add('message-bubble');
+      }
+      
+      messageContainer.appendChild(messageElement);
+      messagesDiv.appendChild(messageContainer);
+      
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>
